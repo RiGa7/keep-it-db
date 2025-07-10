@@ -16,7 +16,6 @@ function CreateArea(props) {
   function handleChange(event) {
     const { name, value } = event.target;
 
-    // Clear error when user types in content field
     if (name === "content" && error) {
       setError("");
     }
@@ -32,7 +31,6 @@ function CreateArea(props) {
   function submitNote(event) {
     event.preventDefault();
 
-    // Trim content and check if empty
     const trimmedContent = note.content.trim();
     if (!trimmedContent) {
       setError("Note content cannot be empty");
@@ -68,7 +66,7 @@ function CreateArea(props) {
         <textarea
           onClick={() => {
             setChecked(true);
-            setError(""); // Clear error when user clicks to type
+            setError(""); 
           }}
           name="content"
           onChange={handleChange}

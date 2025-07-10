@@ -29,6 +29,7 @@ function Note(props) {
     setContent(event.target.value);
   }
 
+  // Note.jsx
   return (
     <div className="note">
       {isEditing ? (

@@ -6,7 +6,7 @@ import pg from 'pg';
 const { Pool } = pg;
 
 const app = express();
-const port = process.env.PORT || 5000;
+const PORT = process.env.PORT || 10000;
 
 const pool = new Pool({
     user: process.env.DB_USER,
@@ -76,4 +76,4 @@ app.delete('/notes/:id', async (req, res) => {
     }
 });
 
-app.listen(port, () => console.log(`Server running on port ${port}`));
+app.listen(PORT, () => console.log(`Server running on ${PORT}`));
