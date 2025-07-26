@@ -5,10 +5,9 @@
 }
 
 html {
-    font-family: "Nunito", sans-serif;
+    font-family: cursive;   
     width: 100%;
     overflow-x: hidden;
-    /* Prevent horizontal scrolling */
 }
 
 body {
