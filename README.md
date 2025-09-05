@@ -65,7 +65,6 @@ PORT=5000
 
 ### 💻 Frontend Setup
 ```
-cd ../client
 npm install
 ```
 ### 🗄️ Database Setup
@@ -108,7 +107,6 @@ npm start
 ```
 - Start the frontend development server:
 ```
-cd ../client
 npm run dev
 ```
 
