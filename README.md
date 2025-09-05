@@ -39,7 +39,7 @@ Keep It is a minimalist note-taking application built with React and Node.js, ba
 - Node.js (v16+)
 - PostgreSQL (v12+)
 - Git
-- (Optional but recommended) pgAdmin for managing your database visually
+- pgAdmin for managing your database visually (Optional but recommended) 
 ---
 
 ### 📥 Clone the Repository
