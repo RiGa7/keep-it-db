@@ -53,20 +53,6 @@ cd server
 npm install
 cp .env.example .env
 ```
-- ### Edit the .env file with your PostgreSQL credentials:
-```
-DB_USER=your_db_username
-DB_HOST=localhost
-DB_NAME=keepit
-DB_PASSWORD=your_db_password
-DB_PORT=5432
-PORT=5000
-```
-
-### 💻 Frontend Setup
-```
-npm install
-```
 ### 🗄️ Database Setup
 
 Option 1. Using PostgreSQL CLI
@@ -98,6 +84,22 @@ Option 2. Using pgAdmin
 | created_at |	TIMESTAMP |	Default: CURRENT_TIMESTAMP |
 
 - Click Save
+
+
+- ### Edit the .env file with your PostgreSQL credentials:
+```
+DB_USER=your_db_username
+DB_HOST=localhost
+DB_NAME=keepit
+DB_PASSWORD=your_db_password
+DB_PORT=5432
+PORT=5000
+```
+
+### 💻 Frontend Setup
+```
+npm install
+```
 
 ### ▶️ Run the Application
 - Start the backend server:
