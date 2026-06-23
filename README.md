@@ -1,4 +1,4 @@
-# 📝 Keep It - Note Taking App
+# Keep It - Note Taking App
 
 ![image](https://github.com/user-attachments/assets/40a8b97a-92fa-4139-a415-8d27ed13c291)
 
@@ -6,26 +6,26 @@ Keep It is a minimalist note-taking application built with React and Node.js, ba
 
 ---
 
-## ✨ Features
+## Features
 
-- 🖊️ Create, edit, and delete notes
-- 🎨 Material Design UI with smooth animations
-- 💾 Data persistence using PostgreSQL
-- 🌐 RESTful API with Express
-- 📱 Responsive layout for all devices
-- ✅ Form validation to prevent empty notes
+- Create, edit, and delete notes
+- Material Design UI with smooth animations
+- Data persistence using PostgreSQL
+- RESTful API with Express
+- Responsive layout for all devices
+- Form validation to prevent empty notes
 
 ---
 
-## 🔧 Tech Stack
+## Tech Stack
 
-### ⚛️ Frontend
+### Frontend
 - React 18
 - Material-UI (MUI)
 - Vite
 - CSS
 
-### 🖥️ Backend
+### Backend
 - Node.js
 - Express
 - PostgreSQL
@@ -33,27 +33,42 @@ Keep It is a minimalist note-taking application built with React and Node.js, ba
 
 ---
 
-## 🚀 Installation & Setup
+## Installation & Setup
 
-### ✅ Prerequisites
+### Prerequisites
 - Node.js (v16+)
 - PostgreSQL (v12+)
 - Git
 - pgAdmin for managing your database visually (Optional but recommended) 
 ---
 
-### 📥 Clone the Repository
+### Clone the Repository
 ```
 git clone https://github.com/RiGa7/keep-it-db/
 cd keep-it
 ```
-### 🛠️ Backend Setup
+### Backend Setup
 ```
 cd server 
 npm install
 cp .env.example .env
 ```
-### 🗄️ Database Setup
+- ### Edit the .env file with your PostgreSQL credentials:
+```
+DB_USER=your_db_username
+DB_HOST=localhost
+DB_NAME=keepit
+DB_PASSWORD=your_db_password
+DB_PORT=5432
+PORT=5000
+```
+
+### Frontend Setup
+```
+cd ../client
+npm install
+```
+### Database Setup
 
 Option 1. Using PostgreSQL CLI
 ```
@@ -85,23 +100,7 @@ Option 2. Using pgAdmin
 
 - Click Save
 
-
-- ### Edit the .env file with your PostgreSQL credentials:
-```
-DB_USER=your_db_username
-DB_HOST=localhost
-DB_NAME=keepit
-DB_PASSWORD=your_db_password
-DB_PORT=5432
-PORT=5000
-```
-
-### 💻 Frontend Setup
-```
-npm install
-```
-
-### ▶️ Run the Application
+### Run the Application
 - Start the backend server:
 ```
 cd server
@@ -114,7 +113,7 @@ npm run dev
 
 - Visit the app in your browser at: http://localhost:5173
 
-### 🧱 Project Structure
+### Project Structure
 ```
 keep-it/
 ├── public/
@@ -144,4 +143,3 @@ keep-it/
 └── README.md
 
 ```
-
