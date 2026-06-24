@@ -4,6 +4,7 @@ import CreateArea from "../components/CreateArea";
 import EditModal from "../components/EditModal";
 import Sidebar from "../components/Sidebar";
 import { useAuth } from "../context/AuthContext";
+import API_URL from "../config/api"
 
 function Home() {
     const { token, logout } = useAuth();
@@ -13,7 +14,6 @@ function Home() {
     const [error, setError] = useState(null);
     const [selectedLabel, setSelectedLabel] = useState("");
 
-    const API_URL = "http://localhost:5000/notes";
 
     const authHeaders = {
         "Content-Type": "application/json",
@@ -25,7 +25,7 @@ function Home() {
             try {
                 setLoading(true);
 
-                const response = await fetch(API_URL, {
+                const response = await fetch(`${API_URL}/notes`, {
                     headers: { "Authorization": `Bearer ${token}` },
                 });
 
@@ -61,7 +61,7 @@ function Home() {
 
     const addNote = async (newNote) => {
         try {
-            const response = await fetch(API_URL, {
+            const response = await fetch(`${API_URL}/notes`, {
                 method: "POST",
                 headers: authHeaders,
                 body: JSON.stringify(newNote),
@@ -93,7 +93,7 @@ function Home() {
 
     const editNote = async (id, updatedNote) => {
         try {
-            const response = await fetch(`${API_URL}/${id}`, {
+            const response = await fetch(`${API_URL}/notes/${id}`, {
                 method: "PUT",
                 headers: authHeaders,
                 body: JSON.stringify(updatedNote),
@@ -120,7 +120,7 @@ function Home() {
 
     const deleteNote = async (id) => {
         try {
-            await fetch(`${API_URL}/${id}`, {
+            await fetch(`${API_URL}/notes/${id}`, {
                 method: "DELETE",
                 headers: { "Authorization": `Bearer ${token}` },
             });

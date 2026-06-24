@@ -20,7 +20,7 @@ pnpm-debug.log*
 pnpm-error.log*
 
 # Local env variables
-.env
+.env*
 .env.*.local
 
 # OS-generated

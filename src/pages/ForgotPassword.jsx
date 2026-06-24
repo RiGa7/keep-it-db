@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
-const API = "http://localhost:5000";
+import API_URL from "../config/api";
 
 // Step 1 = enter email, Step 2 = answer question, Step 3 = set new password, Step 4 = success
 export default function ForgotPassword() {
@@ -23,7 +22,7 @@ export default function ForgotPassword() {
         setError("");
         setLoading(true);
         try {
-            const res = await fetch(`${API}/auth/forgot-password/question`, {
+            const res = await fetch(`${API_URL}/auth/forgot-password/question`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email }),
@@ -49,7 +48,7 @@ export default function ForgotPassword() {
 
         setLoading(true);
         try {
-            const res = await fetch(`${API}/auth/forgot-password/reset`, {
+            const res = await fetch(`${API_URL}/auth/forgot-password/reset`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, security_answer: answer, new_password: newPassword }),
