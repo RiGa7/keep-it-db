@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useToast } from "../context/ToastContext";
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 
@@ -17,6 +18,7 @@ const SECURITY_QUESTIONS = [
 export default function Register() {
     const { login } = useAuth();
     const navigate = useNavigate();
+    const { showToast } = useToast();
     const [showPassword, setShowPassword] = useState(false);
 
     const [form, setForm] = useState({
@@ -27,7 +29,6 @@ export default function Register() {
         security_question: SECURITY_QUESTIONS[0],
         security_answer: "",
     });
-    const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
     const handleChange = (e) =>
@@ -35,16 +36,15 @@ export default function Register() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError("");
 
         if (form.password !== form.confirmPassword) {
-            return setError("Passwords do not match");
+            return showToast("Passwords do not match");
         }
         if (form.password.length < 6) {
-            return setError("Password must be at least 6 characters");
+            return showToast("Password must be at least 6 characters");
         }
         if (!form.security_answer.trim()) {
-            return setError("Please provide a security answer");
+            return showToast("Please provide a security answer");
         }
 
         setLoading(true);
@@ -65,7 +65,7 @@ export default function Register() {
             login(data.user, data.token);
             navigate("/");
         } catch (err) {
-            setError(err.message);
+            showToast(err.message);
         } finally {
             setLoading(false);
         }
@@ -76,18 +76,14 @@ export default function Register() {
             <div className="w-full max-w-[80%] lg:max-w-[60%]">
                 {/* Logo */}
                 <div className="text-center mb-8">
-                    <h1 className="text-4xl font-bold text-accent tracking-tight">Keep-It</h1>
+                    <h1 className="text-3xl font-bold text-accent tracking-tight">Keep-It</h1>
                     <p className="text-gray-dark mt-2 text-sm">Start organizing your thoughts</p>
                 </div>
 
                 <div className="bg-secondary/60 backdrop-blur-md border border-white/10 rounded-xl p-8 shadow-md">
                     <h2 className="text-white text-2xl font-semibold mb-6">Create an account</h2>
 
-                    {error && (
-                        <div className="mb-5 bg-red-500/10 border border-red-400/40 text-red-400 rounded-xl px-4 py-3 text-sm">
-                            {error}
-                        </div>
-                    )}
+
 
                     <form onSubmit={handleSubmit} className="space-y-4 grid md:grid-cols-2 gap-4 md:gap-10">
                         {/* col - 1 */}
@@ -227,22 +223,23 @@ export default function Register() {
 
 
                         </div>
-
+                        <div className="col-span-2 flex flex-col items-center">
+                            <button
+                                id="register-submit"
+                                type="submit"
+                                disabled={loading}
+                                className="w-1/2 bg-accent text-primary font-bold py-3 rounded-xl hover:brightness-110 active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm tracking-wide mt-2"
+                            >
+                                {loading ? "Creating account…" : "Create Account"}
+                            </button>
+                            <p className="text-gray-dark text-sm text-center mt-6">
+                                Already have an account?{" "}
+                                <Link to="/login" className="text-accent hover:underline font-medium">
+                                    Sign in
+                                </Link>
+                            </p>
+                        </div>
                     </form>
-                    <button
-                        id="register-submit"
-                        type="submit"
-                        disabled={loading}
-                        className="w-full bg-accent text-primary font-bold py-3 rounded-xl hover:brightness-110 active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm tracking-wide mt-2"
-                    >
-                        {loading ? "Creating account…" : "Create Account"}
-                    </button>
-                    <p className="text-gray-dark text-sm text-center mt-6">
-                        Already have an account?{" "}
-                        <Link to="/login" className="text-accent hover:underline font-medium">
-                            Sign in
-                        </Link>
-                    </p>
                 </div>
             </div>
         </div>

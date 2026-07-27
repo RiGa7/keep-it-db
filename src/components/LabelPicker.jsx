@@ -42,7 +42,7 @@ export default function LabelPicker({ label, labelColor, onLabelChange, onColorC
     : [];
 
   return (
-    <div className="flex flex-col gap-2 mt-4 pt-3 border-t border-tertiary" ref={wrapperRef}>
+    <div className="flex flex-col gap-1 pt-2 border-t border-tertiary" ref={wrapperRef}>
 
       {/* Text row */}
       <div className="flex items-center gap-2 relative">
@@ -105,7 +105,7 @@ export default function LabelPicker({ label, labelColor, onLabelChange, onColorC
               type="button"
               onClick={() => onColorChange(isActive ? "" : value)}
               title={name}
-              className="w-5 h-5 rounded-full transition-all duration-150 hover:scale-125 focus:outline-none"
+              className="w-2.5 h-2.5 md:w-5 md:h-5 rounded-full transition-all duration-150 hover:scale-125 focus:outline-none"
               style={{
                 backgroundColor: value,
                 boxShadow: isActive ? `0 0 0 2px #222831, 0 0 0 3.5px ${value}` : "none",

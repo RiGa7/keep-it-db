@@ -156,7 +156,7 @@ function Home() {
         <section className="min-h-screen flex bg-primary bg-[url('https://www.transparenttextures.com/patterns/inspiration-geometry.png')]">
 
             <Sidebar labels={labels} selectedLabel={selectedLabel} onSelectLabel={setSelectedLabel} />
-            <main className="flex-1 min-w-0 px-4 sm:px-6 lg:px-8 pb-10">
+            <main className="flex-1 min-w-0 px-3 sm:px-6 lg:px-8 pb-20 md:pb-10 pt-20 md:pt-0">
 
 
 
@@ -187,7 +187,7 @@ function Home() {
                 )}
 
                 {!loading && !error && filteredNotes.length > 0 && (
-                    <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-6 mt-10">
+                    <div className="grid grid-cols-2 md:grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-2 md:gap-6 mt-10">
                         {filteredNotes.map((noteItem) => (
                             <Note
                                 key={noteItem.id}

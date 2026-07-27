@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useToast } from "../context/ToastContext";
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 
@@ -9,9 +10,9 @@ const API = "http://localhost:5000";
 export default function Login() {
     const { login } = useAuth();
     const navigate = useNavigate();
+    const { showToast } = useToast();
 
     const [form, setForm] = useState({ email: "", password: "" });
-    const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
 
@@ -20,7 +21,6 @@ export default function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError("");
         setLoading(true);
         try {
             const res = await fetch(`${API}/auth/login`, {
@@ -33,7 +33,7 @@ export default function Login() {
             login(data.user, data.token);
             navigate("/");
         } catch (err) {
-            setError(err.message);
+            showToast(err.message);
         } finally {
             setLoading(false);
         }
@@ -50,12 +50,6 @@ export default function Login() {
 
                 <div className="bg-secondary/60 backdrop-blur-md border border-white/10 rounded-xl p-8 shadow-md">
                     <h2 className="text-white text-2xl font-semibold mb-6">Welcome back</h2>
-
-                    {error && (
-                        <div className="mb-5 bg-red-500/10 border border-red-400/40 text-red-400 rounded-xl px-4 py-3 text-sm">
-                            {error}
-                        </div>
-                    )}
 
                     <form onSubmit={handleSubmit} className="space-y-5">
                         <div>

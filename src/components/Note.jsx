@@ -21,7 +21,7 @@ function Note(props) {
   return (
     <div
       onClick={handleEdit}
-      className="group relative bg-secondary border border-tertiary rounded-xl py-4 px-3 hover:shadow-sm hover:scale-102 transition-all duration-200 flex flex-col min-h-[220px] cursor-pointer"
+      className="group relative bg-secondary border border-tertiary rounded-xl p-2 md:py-4 md:px-3 hover:shadow-sm hover:scale-102 transition-all duration-200 flex flex-col min-h-[220px] cursor-pointer"
     >
       <div className="flex flex-col h-full">
         <div className="flex-1">
@@ -37,12 +37,12 @@ function Note(props) {
             </span>
           )}
 
-          <h1 className="text-xl font-semibold text-white mb-3 break-words">
+          <h1 className="text-xl font-semibold text-white md:mb-3 break-words">
             {props.title}
           </h1>
 
           <div
-            className="note-content prose prose-invert max-w-none text-gray-300 leading-relaxed line-clamp-10"
+            className="text-xs md:text-md note-content prose prose-invert max-w-none text-gray-300 leading-relaxed line-clamp-10"
             dangerouslySetInnerHTML={{ __html: props.content }}
           />
         </div>

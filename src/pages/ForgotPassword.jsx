@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import API_URL from "../config/api";
+import { useToast } from "../context/ToastContext";
 
 // Step 1 = enter email, Step 2 = answer question, Step 3 = set new password, Step 4 = success
 export default function ForgotPassword() {
     const navigate = useNavigate();
+    const { showToast } = useToast();
     const [step, setStep] = useState(1);
 
     const [email, setEmail] = useState("");
@@ -13,13 +15,11 @@ export default function ForgotPassword() {
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
-    const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
     // Step 1: fetch the security question for this email
     const handleGetQuestion = async (e) => {
         e.preventDefault();
-        setError("");
         setLoading(true);
         try {
             const res = await fetch(`${API_URL}/auth/forgot-password/question`, {
@@ -32,7 +32,7 @@ export default function ForgotPassword() {
             setQuestion(data.security_question);
             setStep(2);
         } catch (err) {
-            setError(err.message);
+            showToast(err.message);
         } finally {
             setLoading(false);
         }
@@ -41,10 +41,9 @@ export default function ForgotPassword() {
     // Step 2 + 3: verify answer + reset password
     const handleReset = async (e) => {
         e.preventDefault();
-        setError("");
 
-        if (newPassword !== confirmPassword) return setError("Passwords do not match");
-        if (newPassword.length < 6) return setError("Password must be at least 6 characters");
+        if (newPassword !== confirmPassword) return showToast("Passwords do not match");
+        if (newPassword.length < 6) return showToast("Password must be at least 6 characters");
 
         setLoading(true);
         try {
@@ -57,7 +56,7 @@ export default function ForgotPassword() {
             if (!res.ok) throw new Error(data.error || "Reset failed");
             setStep(4);
         } catch (err) {
-            setError(err.message);
+            showToast(err.message);
         } finally {
             setLoading(false);
         }
@@ -83,12 +82,6 @@ export default function ForgotPassword() {
                                     className={`h-1 flex-1 rounded-full transition-all duration-300 ${step >= s ? "bg-accent" : "bg-white/10"}`}
                                 />
                             ))}
-                        </div>
-                    )}
-
-                    {error && (
-                        <div className="mb-5 bg-red-500/10 border border-red-400/40 text-red-400 rounded-xl px-4 py-3 text-sm">
-                            {error}
                         </div>
                     )}
 

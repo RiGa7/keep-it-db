@@ -2,8 +2,29 @@
 <html lang="en">
 
 <head>
-  <title>Keep it</title>
-  <link rel="stylesheet" href="/src/styles.css" />
+  <meta charset="UTF-8">
+
+  <!--
+    Makes the website responsive on mobile devices.
+
+    width=device-width
+    -> Tells the browser to use the actual width of the device
+      (e.g., ~390px on an iPhone instead of the old default ~980px).
+
+    initial-scale=1.0
+    -> Loads the page at 100% zoom.
+
+    Without this tag, media queries and responsive layouts may not work
+    correctly on phones because the browser pretends the screen is much wider.
+  -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="Keep It - A note taking app">
+
+  <title>Keep It</title>
+
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/src/styles.css">
 </head>
 
 <body>

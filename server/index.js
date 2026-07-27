@@ -30,8 +30,6 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET;
 
-
-
 const pool = new Pool({
     user: process.env.DB_USER,
     host: process.env.DB_HOST,

@@ -70,8 +70,8 @@ function CreateArea({ onAdd, existingLabels = [] }) {
   }, [checked, handleSave]);
 
   return (
-    <div className="flex justify-center px-4 mt-10">
-      <form ref={formRef} className="group relative w-full max-w-4xl bg-secondary border border-tertiary rounded-xl hover:shadow-lg transition-all duration-200 p-5">
+    <div className="flex justify-center lg:mt-10">
+      <form ref={formRef} className="group relative w-full max-w-4xl bg-secondary border border-tertiary rounded-xl hover:shadow-lg transition-all duration-200 p-2 md:p-5">
 
         {error && (
           <Fade in={!!error}>
@@ -96,12 +96,14 @@ function CreateArea({ onAdd, existingLabels = [] }) {
         {!checked ? (
           <div
             onClick={() => setChecked(true)}
+            autoFocus
             className="text-gray-dark cursor-text py-1 select-none"
           >
             Take a note...
           </div>
         ) : (
           <Editor
+          autofoucs
             key={editorKey}
             value={note.content}
             onChange={handleContentChange}

@@ -44,7 +44,7 @@ function EditModal({ note, onClose, onSave, onDelete, existingLabels = [] }) {
       >
 
         {/* Note body */}
-        <div className="p-5">
+        <div className="p-2 md:p-5">
           <input
             type="text"
             value={title}
@@ -55,7 +55,7 @@ function EditModal({ note, onClose, onSave, onDelete, existingLabels = [] }) {
 
           <Editor value={content} onChange={setContent} showToolbar={showToolbar} />
 
-          <div className="flex items-center justify-between gap-1 mt-2 pt-2 border-t border-white/10">
+          <div className="flex items-center justify-between gap-1 mt-1 pt-1 border-t border-white/10">
 
             <div className="flex items-center justify-end gap-1">
               <IconButton
@@ -93,7 +93,7 @@ function EditModal({ note, onClose, onSave, onDelete, existingLabels = [] }) {
 
           {showLabel && (
             <Fade in={showLabel}>
-              <div className="mt-3">
+              <div className="mt-1">
                 <LabelPicker
                   label={label}
                   labelColor={labelColor}
@@ -112,22 +112,24 @@ function EditModal({ note, onClose, onSave, onDelete, existingLabels = [] }) {
         <div className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
           <div
             onClick={(e) => e.stopPropagation()}
-            className="bg-[#222831] p-6 rounded-xl border border-tertiary shadow-2xl max-w-sm w-full animate-in fade-in zoom-in duration-200"
+            className="bg-primary p-6 rounded-xl border border-secondary shadow-2xl max-w-sm w-full animate-in fade-in zoom-in duration-200"
           >
-            <h3 className="text-xl font-semibold text-white mb-3">Delete Note?</h3>
-            <p className="text-gray-400 mb-6">Are you sure you want to delete this note? This action cannot be undone.</p>
+            <p className="mb-6">Are you sure you want to delete this note? You won&apos;t be able to restore it later.</p>
             <div className="flex justify-end gap-3">
               <button
                 onClick={() => setShowDeleteModal(false)}
-                className="px-4 py-2 rounded-lg text-gray-300 font-medium hover:bg-white/10 transition-colors"
+                className="px-4 py-2 rounded-lg border border-secondary font-medium hover:bg-white/10 transition-colors"
               >
-                Cancel
+                No
               </button>
               <button
                 onClick={confirmDeleteAction}
-                className="px-4 py-2 rounded-lg bg-red-500/20 text-red-400 font-medium hover:bg-red-500/30 transition-colors"
+                className="px-4 py-0.5 rounded-lg border border-danger text-danger bg-gray font-medium hover:bg-danger/90 hover:text-white transition-all"
               >
-                Delete
+                <span className="flex flex-col">
+                  <span>Yes,</span>
+                  <span className="text-xs">Delete this note</span>
+                </span>
               </button>
             </div>
           </div>
