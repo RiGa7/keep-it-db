@@ -71,7 +71,7 @@ function CreateArea({ onAdd, existingLabels = [] }) {
 
   return (
     <div className="flex justify-center lg:mt-10">
-      <form ref={formRef} className="group relative w-full max-w-4xl bg-secondary border border-tertiary rounded-xl hover:shadow-lg transition-all duration-200 p-2 md:p-5">
+      <form ref={formRef} className="group relative w-full md:max-w-2xl bg-secondary border border-tertiary rounded-xl hover:shadow-lg transition-all duration-200 p-2 md:p-5">
 
         {error && (
           <Fade in={!!error}>

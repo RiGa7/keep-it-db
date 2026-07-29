@@ -181,8 +181,9 @@ function Home() {
                 )}
 
                 {!loading && !error && filteredNotes.length === 0 && (
-                    <div className="text-center text-accent text-lg mt-16">
-                        No notes found. Create your first note!
+                    <div className="text-center text-gray text-lg mt-16">
+                        No notes found. <br />
+                        Create your first note!
                     </div>
                 )}
 

@@ -29,6 +29,11 @@
   }
 }
 
+*::selection{
+  background-color: var(--color-gray-dark);
+  color: #000000;
+}
+
 body {
   color: var(--color-gray);
   background-color: var(--color-primary);
