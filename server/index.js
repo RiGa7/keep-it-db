@@ -1,14 +1,27 @@
 import dotenv from 'dotenv';
+import express from 'express';
+import cors from 'cors';
+import pg from 'pg';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 dotenv.config();
 
+// for local
+// const requiredEnv = [
+//   'DB_USER',
+//   'DB_HOST',
+//   'DB_NAME',
+//   'DB_PASSWORD',
+//   'DB_PORT',
+//   'JWT_SECRET'
+// ];
+
 const requiredEnv = [
-  'DB_USER',
-  'DB_HOST',
-  'DB_NAME',
-  'DB_PASSWORD',
-  'DB_PORT',
-  'JWT_SECRET'
+  "DB_URL",
+  "JWT_SECRET",
+  "NODE_ENV",
+  "CLIENT_URL",
 ];
 
 requiredEnv.forEach(key => {
@@ -16,13 +29,6 @@ requiredEnv.forEach(key => {
     throw new Error(`Missing environment variable: ${key}`);
   }
 });
-
-import express from 'express';
-import cors from 'cors';
-import pg from 'pg';
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
-
 
 
 const { Pool } = pg;
