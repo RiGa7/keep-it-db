@@ -18,16 +18,16 @@ dotenv.config();
 // ];
 
 const requiredEnv = [
-  "DB_URL",
-  "JWT_SECRET",
-  "NODE_ENV",
-  "CLIENT_URL",
+    "DB_URL",
+    "JWT_SECRET",
+    "NODE_ENV",
+    "CLIENT_URL",
 ];
 
 requiredEnv.forEach(key => {
-  if (!process.env[key]) {
-    throw new Error(`Missing environment variable: ${key}`);
-  }
+    if (!process.env[key]) {
+        throw new Error(`Missing environment variable: ${key}`);
+    }
 });
 
 
@@ -185,7 +185,6 @@ app.post('/auth/forgot-password/reset', async (req, res) => {
 
         const newHash = await bcrypt.hash(new_password, 12);
         await pool.query('UPDATE users SET password_hash = $1 WHERE id = $2', [newHash, user.id]);
-
         res.json({ message: 'Password reset successfully' });
 
     } catch (err) {
@@ -197,10 +196,10 @@ app.post('/auth/forgot-password/reset', async (req, res) => {
 
 //checkup route
 app.get('/', (req, res) => {
-  res.json({
-    status: 'ok',
-    message: 'Keep-It API running'
-  });
+    res.json({
+        status: 'ok',
+        message: 'Keep-It API running'
+    });
 });
 
 
@@ -208,7 +207,7 @@ app.get('/', (req, res) => {
 app.get('/notes', authenticateToken, async (req, res) => {
     try {
         const { rows } = await pool.query(
-           'SELECT * FROM notes WHERE user_id = $1 ORDER BY created_at DESC',
+            'SELECT * FROM notes WHERE user_id = $1 ORDER BY created_at DESC',
             [req.user.id]
         );
         res.json(rows);
@@ -226,39 +225,23 @@ app.post('/notes', authenticateToken, async (req, res) => {
     const { title, content, label, label_color } = req.body;
 
     try {
-
         const { rows } = await pool.query(
-
             'INSERT INTO notes (title, content, label, label_color, user_id) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-
             [title, content, label || null, label_color || null, req.user.id]
-
         );
 
         const newNote = rows[0];
-
         if (newNote.label) {
-
             await pool.query(
-
                 'UPDATE notes SET label_color = $1 WHERE user_id = $2 AND label = $3',
-
                 [newNote.label_color, req.user.id, newNote.label]
-
             );
-
         }
-
         res.json(newNote);
-
     } catch (err) {
-
         console.error(err);
-
         res.status(500).json({ error: 'Server error' });
-
     }
-
 });
 
 
@@ -266,69 +249,36 @@ app.post('/notes', authenticateToken, async (req, res) => {
 app.put('/notes/:id', authenticateToken, async (req, res) => {
 
     const { id } = req.params;
-
     const { title, content, label, label_color } = req.body;
-
     try {
-
         const { rows } = await pool.query(
-
             'UPDATE notes SET title = $1, content = $2, label = $3, label_color = $4 WHERE id = $5 AND user_id = $6 RETURNING *',
-
             [title, content, label || null, label_color || null, id, req.user.id]
-
         );
-
         if (rows.length === 0) return res.status(404).json({ error: 'Note not found' });
-
         const updatedNote = rows[0];
-
         if (updatedNote.label) {
-
             await pool.query(
-
                 'UPDATE notes SET label_color = $1 WHERE user_id = $2 AND label = $3',
-
                 [updatedNote.label_color, req.user.id, updatedNote.label]
-
             );
-
         }
-
         res.json(updatedNote);
-
     } catch (err) {
-
         console.error(err);
-
         res.status(500).json({ error: 'Server error' });
-
     }
-
 });
-
-
 
 app.delete('/notes/:id', authenticateToken, async (req, res) => {
-
     const { id } = req.params;
-
     try {
-
         await pool.query('DELETE FROM notes WHERE id = $1 AND user_id = $2', [id, req.user.id]);
-
         res.status(204).end();
-
     } catch (err) {
-
         console.error(err);
-
         res.status(500).json({ error: 'Server error' });
-
     }
-
 });
-
-
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
