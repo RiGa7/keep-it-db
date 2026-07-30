@@ -70,7 +70,7 @@ function CreateArea({ onAdd, existingLabels = [] }) {
   }, [checked, handleSave]);
 
   return (
-    <div className="flex justify-center lg:mt-10">
+    <div className="flex justify-center md:mt-10">
       <form ref={formRef} className="group relative w-full md:max-w-2xl bg-secondary border border-tertiary rounded-xl hover:shadow-lg transition-all duration-200 p-2 md:p-5">
 
         {error && (

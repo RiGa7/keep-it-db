@@ -1,7 +1,7 @@
 import { useState } from "react";
-import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import MobileProfileMenu from "./MobileProfileMenu";
 import MobileLabels from "./MobileLabels";
+import logo from "../assets/logo.png"
 
 export default function MobileNavbar({
     user,
@@ -19,16 +19,7 @@ export default function MobileNavbar({
             <header className="fixed top-0 left-0 right-0 h-16 bg-primary border-b border-secondary flex items-center justify-between px-4 z-40 md:hidden">
 
                 <div className="flex items-center gap-2">
-
-                    <img
-                        src="/logo.png"
-                        className="h-8 w-8"
-                    />
-
-                    <span className="text-accent font-bold text-lg">
-                        Keep It
-                    </span>
-
+                    <img src={logo} className="h-8 w-14" />
                 </div>
 
                 <button

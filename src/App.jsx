@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
+import NotFound from "./pages/NotFound";
 
 function ProtectedRoute({ children }) {
     const { isAuthenticated } = useAuth();
@@ -43,8 +44,9 @@ function AppRoutes() {
                     </GuestRoute>
                 }
             />
+
             <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
+             <Route path="*" element={<NotFound/>}/>
         </Routes>
     );
 }

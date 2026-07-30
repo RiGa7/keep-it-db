@@ -7,6 +7,7 @@ import KeyboardArrowUpRoundedIcon from '@mui/icons-material/KeyboardArrowUpRound
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import logo from "../assets/logo.png"
 
 export default function Sidebar({ labels = [], selectedLabel = "", onSelectLabel = () => { } }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -35,7 +36,7 @@ export default function Sidebar({ labels = [], selectedLabel = "", onSelectLabel
       {/* Desktop Sidebar */}
       <aside className={`hidden md:flex fixed top-0 left-0 h-screen flex-col transition-all duration-200 bg-primary border-r border-secondary shadow-2xl z-50 overflow-x-hidden ${menuOpen ? "w-[250px]" : "w-[60px]"}`}>
         <div className={`p-4 flex items-center ${menuOpen ? "justify-between" : "justify-center"}`}>
-          {menuOpen && <h1 className="text-2xl font-bold text-accent whitespace-nowrap">Keep It</h1>}
+          {menuOpen && <img src={logo} className="h-8 w-14" />}
           <MenuIcon onClick={() => setMenuOpen(!menuOpen)} className="text-white cursor-pointer shrink-0" />
         </div>
 
@@ -110,13 +111,13 @@ export default function Sidebar({ labels = [], selectedLabel = "", onSelectLabel
       </aside>
 
       {/* Mobile Top Bar */}
-      <div className="md:hidden fixed top-0 left-0 right-0  bg-primary border-b border-secondary z-40 flex items-center justify-between px-2 py-2">
+      <div className="md:hidden fixed top-0 left-0 right-0  bg-primary border-b border-secondary z-40 flex items-center justify-between px-2 py-4">
         <div className="flex items-center gap-2">
           <MenuIcon
             onClick={() => setMenuOpen(!menuOpen)}
             className="text-[18px]! md:text-[24px]! cursor-pointer"
           />
-          <h1 className="text-xl font-bold text-accent">Keep It</h1>
+          <img src={logo} className="h-8 w-14" />
         </div>
         <div className="flex items-center gap-3">
           <div
@@ -138,7 +139,7 @@ export default function Sidebar({ labels = [], selectedLabel = "", onSelectLabel
         {/* Sidebar */}
         <div className={`absolute top-0 left-0 h-full w-72 bg-primary border-r border-secondary shadow-2xl transform transition-transform duration-300 ${menuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
           <div className="p-4 flex items-center justify-between border-b border-secondary">
-            <h1 className="text-2xl font-bold text-accent">Keep It</h1>
+            <img src={logo} className="h-8 w-14" />
             <CloseRoundedIcon
               onClick={() => setMenuOpen(false)}
               className="text-white cursor-pointer"
