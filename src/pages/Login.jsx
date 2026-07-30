@@ -4,9 +4,9 @@ import { useAuth } from "../context/AuthContext";
 import { useToast } from "../context/ToastContext";
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
-import { getApiUrl } from "../config/api";
+import API_URL from "../config/api";
 
-const API = getApiUrl();
+const API = API_URL;
 
 export default function Login() {
     const { login } = useAuth();
