@@ -60,13 +60,6 @@ Thumbs.db
 *.sql
 *.dump
 
-# Prevent uploading screenshots or sensitive assets by accident
-*.png
-*.jpg
-*.jpeg
-*.webp
-*.svg
-*.gif
 
 # Git-specific
 .git/
