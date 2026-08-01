@@ -12,14 +12,13 @@ import LabelOutlinedIcon from "@mui/icons-material/LabelOutlined";
 function CreateArea({ onAdd, existingLabels = [] }) {
   const [note, setNote] = useState({ title: "", content: "", label: "", label_color: "" });
   const [checked, setChecked] = useState(false);
-  const [error, setError] = useState("");
   const [editorKey, setEditorKey] = useState(0);
   const [showToolbar, setShowToolbar] = useState(false);
   const [showLabel, setShowLabel] = useState(false);
   const formRef = useRef(null);
 
+
   function handleContentChange(html) {
-    if (error) setError("");
     setNote((prev) => ({ ...prev, content: html }));
   }
 
@@ -33,12 +32,6 @@ function CreateArea({ onAdd, existingLabels = [] }) {
       setChecked(false);
       setShowToolbar(false);
       setShowLabel(false);
-      setError("");
-      return;
-    }
-
-    if (!text.trim()) {
-      setError("Note content cannot be empty");
       return;
     }
 
@@ -47,7 +40,6 @@ function CreateArea({ onAdd, existingLabels = [] }) {
     setNote({ title: "", content: "", label: "", label_color: "" });
     setEditorKey((k) => k + 1);
     setChecked(false);
-    setError("");
     setShowToolbar(false);
     setShowLabel(false);
   }, [note, onAdd]);
@@ -72,15 +64,6 @@ function CreateArea({ onAdd, existingLabels = [] }) {
   return (
     <div className="flex justify-center md:mt-10">
       <form ref={formRef} className="group relative w-full md:max-w-2xl bg-secondary border border-tertiary rounded-xl hover:shadow-lg transition-all duration-200 p-2 md:p-5">
-
-        {error && (
-          <Fade in={!!error}>
-            <div className="mb-4 text-sm text-red-400 bg-red-500/10 border border-red-400/30 rounded-lg px-4 py-2">
-              {error}
-            </div>
-          </Fade>
-        )}
-
         {checked && (
           <Fade in={checked}>
             <input

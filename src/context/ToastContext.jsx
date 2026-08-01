@@ -44,9 +44,9 @@ export function useToast() {
 const STYLES = {
     error: {
         bg: "#ffffff",
-        border: "#F62440",
-        color: "#F62440",
-        iconStroke: "#F62440",
+        border: "#E03F4F",
+        color: "#E03F4F",
+        iconStroke: "#E03F4F",
     },
     success: {
         bg: "var(--bg-secondary)",

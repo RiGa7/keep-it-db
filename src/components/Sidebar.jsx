@@ -34,7 +34,7 @@ export default function Sidebar({ labels = [], selectedLabel = "", onSelectLabel
       <div className={`hidden md:block transition-all duration-200 shrink-0 ${menuOpen ? "w-[250px]" : "w-[60px]"}`} />
 
       {/* Desktop Sidebar */}
-      <aside className={`hidden md:flex fixed top-0 left-0 h-screen flex-col transition-all duration-200 bg-primary border-r border-secondary shadow-2xl z-50 overflow-x-hidden ${menuOpen ? "w-[250px]" : "w-[60px]"}`}>
+      <aside className={`hidden md:flex fixed top-0 left-0 h-screen flex-col transition-all duration-200 bg-primary border-r border-secondary shadow-2xl z-50 overflow-x-hidden ${menuOpen ? "w-62.5" : "w-[60px]"}`}>
         <div className={`p-4 flex items-center ${menuOpen ? "justify-between" : "justify-center"}`}>
           {menuOpen && <img src={logo} className="h-8 w-14" />}
           <MenuIcon onClick={() => setMenuOpen(!menuOpen)} className="text-white cursor-pointer shrink-0" />

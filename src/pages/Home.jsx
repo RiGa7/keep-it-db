@@ -49,7 +49,7 @@ function Home() {
 
             } catch (error) {
                 console.error("Error fetching notes:", error);
-                setError(error.message);
+                setError(error.message);    
                 setNotes([]);
             } finally {
                 setLoading(false);
@@ -57,7 +57,7 @@ function Home() {
         };
 
         fetchNotes();
-    }, [token]);
+    }, [logout, token]);
 
     const addNote = async (newNote) => {
         try {
@@ -158,22 +158,20 @@ function Home() {
             <Sidebar labels={labels} selectedLabel={selectedLabel} onSelectLabel={setSelectedLabel} />
             <main className="flex-1 min-w-0 px-3 sm:px-6 lg:px-8 pb-20 md:pb-10 pt-20 md:pt-0">
 
-
-
                 <CreateArea onAdd={addNote} existingLabels={labels} />
 
                 {loading && (
-                    <div className="text-center text-white text-lg mt-10">
+                    <div className="text-center text-gray text-lg mt-10">
                         Loading notes...
                     </div>
                 )}
 
                 {error && (
-                    <div className="max-w-md mx-auto mt-10 bg-red-500/10 border border-red-400 text-red-400 rounded-xl p-5 text-center">
-                        <p className="mb-4">Error: {error}</p>
+                    <div className="max-w-md mx-auto mt-10  rounded-xl p-5 text-center">
+                        <p className="mb-4 text-danger text-xl">Error: {error}</p>
                         <button
                             onClick={() => window.location.reload()}
-                            className="px-5 py-2 rounded-lg bg-accent text-primary font-semibold hover:scale-105 transition-transform"
+                            className="px-6 py-1 rounded-lg bg-gray text-primary font-semibold hover:scale-105 transition-transform"
                         >
                             Retry
                         </button>
