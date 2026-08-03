@@ -44,7 +44,7 @@ function EditModal({ note, onClose, onSave, onDelete, existingLabels = [] }) {
       >
 
         {/* Note body */}
-        <div className="p-2 md:p-5">
+        <div className="p-4 md:p-5">
           <input
             type="text"
             value={title}

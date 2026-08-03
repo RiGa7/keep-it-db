@@ -71,7 +71,7 @@ export default function ForgotPassword() {
                     <p className="text-gray-dark mt-2 text-sm">Account recovery</p>
                 </div>
 
-                <div className="bg-secondary/60 backdrop-blur-md border border-white/10 rounded-xl p-8 shadow-md">
+                <div className="bg-secondary/60 backdrop-blur-md border border-white/10 rounded-xl p-3 md:p-4 lg:p-8 shadow-md">
 
                     {/* Step indicator */}
                     {step < 4 && (
@@ -94,7 +94,7 @@ export default function ForgotPassword() {
                             </p>
                             <form onSubmit={handleGetQuestion} className="space-y-5">
                                 <div>
-                                    <label htmlFor="fp-email" className="block text-gray text-sm mb-1.5 font-medium">
+                                    <label htmlFor="fp-email" className="block text-gray text-sm mb-1 md:mb-1.5 md:font-medium">
                                         Email address
                                     </label>
                                     <input
@@ -104,7 +104,7 @@ export default function ForgotPassword() {
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
                                         placeholder="you@example.com"
-                                        className="w-full bg-primary/60 border border-white/10 text-white rounded-xl px-4 py-3 text-sm outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all placeholder:text-gray-dark"
+                                        className="w-full bg-primary/60 border border-white/10 text-white rounded-lg md:rounded-xl px-2 md:px-4 py-1.5 md:py-3 text-xs md:text-lg outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all placeholder:text-gray-dark"
                                     />
                                 </div>
                                 <button
@@ -135,7 +135,7 @@ export default function ForgotPassword() {
                                 </div>
 
                                 <div>
-                                    <label htmlFor="fp-answer" className="block text-gray text-sm mb-1.5 font-medium">
+                                    <label htmlFor="fp-answer" className="block text-gray text-sm mb-1 md:mb-1.5 md:font-medium">
                                         Your answer
                                     </label>
                                     <input
@@ -145,12 +145,12 @@ export default function ForgotPassword() {
                                         value={answer}
                                         onChange={(e) => { setAnswer(e.target.value); setStep(2); }}
                                         placeholder="Answer (case-insensitive)"
-                                        className="w-full bg-primary/60 border border-white/10 text-white rounded-xl px-4 py-3 text-sm outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all placeholder:text-gray-dark"
+                                        className="w-full bg-primary/60 border border-white/10 text-white rounded-lg md:rounded-xl px-2 md:px-4 py-1.5 md:py-3 text-xs md:text-lg outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all placeholder:text-gray-dark"
                                     />
                                 </div>
 
                                 <div>
-                                    <label htmlFor="fp-new-pw" className="block text-gray text-sm mb-1.5 font-medium">
+                                    <label htmlFor="fp-new-pw" className="block text-gray text-sm mb-1 md:mb-1.5 md:font-medium">
                                         New password
                                     </label>
                                     <input
@@ -160,12 +160,12 @@ export default function ForgotPassword() {
                                         value={newPassword}
                                         onChange={(e) => { setNewPassword(e.target.value); setStep(3); }}
                                         placeholder="Min. 6 characters"
-                                        className="w-full bg-primary/60 border border-white/10 text-white rounded-xl px-4 py-3 text-sm outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all placeholder:text-gray-dark"
+                                        className="w-full bg-primary/60 border border-white/10 text-white rounded-lg md:rounded-xl px-2 md:px-4 py-1.5 md:py-3 text-xs md:text-lg outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all placeholder:text-gray-dark"
                                     />
                                 </div>
 
                                 <div>
-                                    <label htmlFor="fp-confirm-pw" className="block text-gray text-sm mb-1.5 font-medium">
+                                    <label htmlFor="fp-confirm-pw" className="block text-gray text-sm mb-1 md:mb-1.5 md:font-medium">
                                         Confirm new password
                                     </label>
                                     <input
@@ -175,7 +175,7 @@ export default function ForgotPassword() {
                                         value={confirmPassword}
                                         onChange={(e) => setConfirmPassword(e.target.value)}
                                         placeholder="••••••••"
-                                        className="w-full bg-primary/60 border border-white/10 text-white rounded-xl px-4 py-3 text-sm outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all placeholder:text-gray-dark"
+                                        className="w-full bg-primary/60 border border-white/10 text-white rounded-lg md:rounded-xl px-2 md:px-4 py-1.5 md:py-3 text-xs md:text-lg outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all placeholder:text-gray-dark"
                                     />
                                 </div>
 

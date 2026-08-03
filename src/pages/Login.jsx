@@ -49,12 +49,12 @@ export default function Login() {
                     <p className="text-gray-dark mt-2 text-sm">Your personal note space</p>
                 </div>
 
-                <div className="bg-secondary/60 backdrop-blur-md border border-white/10 rounded-xl p-8 shadow-md">
-                    <h2 className="text-white text-2xl font-semibold mb-6">Welcome back</h2>
+                <div className="bg-secondary/60 backdrop-blur-md border border-white/10 rounded-xl p-3 md:p-4 lg:p-8 shadow-md">
+                    <h2 className="text-white text-lg md:text-2xl font-semibold mb-2 md:mb-4 lg:mb-6">Welcome back</h2>
 
                     <form onSubmit={handleSubmit} className="space-y-5">
                         <div>
-                            <label htmlFor="login-email" className="block text-gray text-sm mb-1.5 font-medium">
+                            <label htmlFor="login-email" className="block text-gray text-sm mb-1 md:mb-1.5 md:font-medium">
                                 Email address
                             </label>
                             <input
@@ -66,7 +66,7 @@ export default function Login() {
                                 value={form.email}
                                 onChange={handleChange}
                                 placeholder="you@example.com"
-                                className="w-full bg-primary/60 border border-white/10 text-white rounded-xl px-4 py-3 text-sm outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all placeholder:text-gray-dark"
+                                className="w-full bg-primary/60 border border-white/10 text-white rounded-lg md:rounded-xl px-2 md:px-4 py-1.5 md:py-3 text-xs md:text-lg outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all placeholder:text-gray-dark"
                             />
                         </div>
 
@@ -88,7 +88,7 @@ export default function Login() {
                                 value={form.password}
                                 onChange={handleChange}
                                 placeholder={(showPassword) ? "Enter a strong password" : "••••••••"}
-                                className="w-full bg-primary/60 border border-white/10 text-white rounded-xl px-4 py-3 text-sm outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all placeholder:text-gray-dark"
+                                className="w-full bg-primary/60 border border-white/10 text-white rounded-lg md:rounded-xl px-2 md:px-4 py-1.5 md:py-3 text-xs md:text-lg outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all placeholder:text-gray-dark"
                             />
                             {showPassword ? (
                                 <VisibilityOffOutlinedIcon

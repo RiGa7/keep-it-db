@@ -105,7 +105,7 @@ export default function LabelPicker({ label, labelColor, onLabelChange, onColorC
               type="button"
               onClick={() => onColorChange(isActive ? "" : value)}
               title={name}
-              className="w-2.5 h-2.5 md:w-5 md:h-5 rounded-full transition-all duration-150 hover:scale-125 focus:outline-none"
+              className="w-3 h-3 md:w-5 md:h-5 rounded-full transition-all duration-150 hover:scale-125 focus:outline-none"
               style={{
                 backgroundColor: value,
                 boxShadow: isActive ? `0 0 0 2px #222831, 0 0 0 3.5px ${value}` : "none",
