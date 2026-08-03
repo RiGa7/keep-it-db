@@ -1,3 +1,5 @@
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
+
 function Note(props) {
   function handleEdit() {
     props.onEditClick({
@@ -21,15 +23,28 @@ function Note(props) {
   return (
     <div
       onClick={handleEdit}
-      className="group relative bg-secondary border border-tertiary rounded-xl p-2 md:py-4 md:px-3 hover:shadow-sm hover:scale-102 transition-all duration-200 flex flex-col min-h-[220px] cursor-pointer"
+      draggable
+      onDragStart={props.onDragStart}
+      onDragOver={props.onDragOver}
+      onDrop={props.onDrop}
+      onDragEnd={props.onDragEnd}
+      className="group relative bg-secondary rounded-xl p-2 md:py-4 md:px-3 hover:shadow-lg border border-secondary hover:border-tertiary transition-all duration-200 flex flex-col min-h-[220px] cursor-pointer"
     >
+      {/* Drag handle — visible on hover */}
+      <div
+        className="absolute top-2 right-2 opacity-0 group-hover:opacity-40 transition-opacity duration-150 cursor-grab active:cursor-grabbing text-gray-400"
+        onMouseDown={(e) => e.stopPropagation()}
+      >
+        <DragIndicatorIcon style={{ fontSize: 18 }} />
+      </div>
+
       <div className="flex flex-col h-full">
         <div className="flex-1">
 
           {/* Label chip */}
           {props.label && (
             <span
-              className={`inline-block text-xs font-medium border rounded-full px-2.5 py-0.5 mb-2 ${!props.label_color ? "text-white border-white/50 bg-white/10" : ""
+              className={`inline-block text-xs font-medium border rounded-full px-2.5 py-0.5 mb-2 ${!props.label_color ? "text-white border-white/50 bg-white/20" : ""
                 }`}
               style={labelStyle}
             >

@@ -146,7 +146,7 @@ export default function Sidebar({ labels = [], selectedLabel = "", onSelectLabel
             />
           </div>
 
-          <nav className="flex-1 overflow-y-auto mt-4">
+          <nav className="flex-1 overflow-y-auto scrollbar mt-4">
             <ul className="space-y-2 px-2">
               <li>
                 <button

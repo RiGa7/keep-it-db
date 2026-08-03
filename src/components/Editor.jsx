@@ -52,7 +52,7 @@ export default function Editor({ value, onChange, showToolbar }) {
     <div className="flex flex-col">
       <EditorContent
         editor={editor}
-        className="max-h-[60vh] overflow-y-auto scrollbar text-white"
+        className="max-h-[35dvh] lg:max-h-[55dvh] min-h-[80px] overflow-y-auto scrollbar text-white"
       />
       {showToolbar && (
         <div className="flex flex-wrap gap-1 px-1 pt-2 border-t border-tertiary mt-1">

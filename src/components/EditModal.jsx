@@ -13,16 +13,16 @@ function EditModal({ note, onClose, onSave, onDelete, existingLabels = [] }) {
   const [label, setLabel] = useState(note.label || "");
   const [labelColor, setLabelColor] = useState(note.label_color || "");
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [showToolbar, setShowToolbar] = useState(false);
-  const [showLabel, setShowLabel] = useState(false);
+  const [activePanel, setActivePanel] = useState(null); // null | "toolbar" | "label"
 
-  // Auto-save with 1s debounce
+
+  // Auto-save 
   useEffect(() => {
     const timeout = setTimeout(() => {
       onSave(note.id, { title, content, label, label_color: labelColor });
-    }, 1000);
+    }, 700);
     return () => clearTimeout(timeout);
-  }, [title, content, label, labelColor]);
+  }, [title, content, label, labelColor, onSave, note.id]);
 
   function handleDeleteClick() {
     setShowDeleteModal(true);
@@ -36,11 +36,11 @@ function EditModal({ note, onClose, onSave, onDelete, existingLabels = [] }) {
   return (
     <div
       onClick={onClose}
-      className="fixed inset-0 backdrop-blur-sm bg-black/50 flex items-center justify-center z-50 px-4"
+      className="fixed inset-0 backdrop-blur-sm bg-black/50 px-1 pt-2 pb-2 flex items-start lg:items-center justify-center z-50 md:px-4 overflow-y-auto"
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="group w-full max-w-4xl bg-secondary rounded-xl shadow-2xl border border-tertiary"
+        className="group w-full max-w-4xl bg-secondary rounded-md lg:rounded-xl shadow-2xl border border-tertiary"
       >
 
         {/* Note body */}
@@ -53,24 +53,24 @@ function EditModal({ note, onClose, onSave, onDelete, existingLabels = [] }) {
             className="w-full bg-transparent text-white text-xl font-semibold placeholder:text-gray-400 outline-none mb-4"
           />
 
-          <Editor value={content} onChange={setContent} showToolbar={showToolbar} />
+          <Editor value={content} onChange={setContent} showToolbar={activePanel === "toolbar"} />
 
           <div className="flex items-center justify-between gap-1 mt-1 pt-1 border-t border-white/10">
 
             <div className="flex items-center justify-end gap-1">
               <IconButton
-                onClick={() => setShowToolbar(!showToolbar)}
+                onClick={() => setActivePanel(p => p === "toolbar" ? null : "toolbar")}
                 size="small"
                 title="Formatting options"
-                sx={{ color: showToolbar ? "#fff" : "#a3a2a2ff", transition: "color 0.2s", "&:hover": { color: "#f1f1f1ff", backgroundColor: "rgba(219, 219, 219, 0.1)" } }}
+                sx={{ color: activePanel === "toolbar" ? "#fff" : "#a3a2a2ff", transition: "color 0.2s", "&:hover": { color: "#f1f1f1ff", backgroundColor: "rgba(219, 219, 219, 0.1)" } }}
               >
                 <FormatColorTextIcon fontSize="small" />
               </IconButton>
               <IconButton
-                onClick={() => setShowLabel(!showLabel)}
+                onClick={() => setActivePanel(p => p === "label" ? null : "label")}
                 size="small"
                 title="Add label"
-                sx={{ color: showLabel ? "#fff" : "#a3a2a2ff", transition: "color 0.2s", "&:hover": { color: "#f1f1f1ff", backgroundColor: "rgba(219, 219, 219, 0.1)" } }}
+                sx={{ color: activePanel === "label" ? "#fff" : "#a3a2a2ff", transition: "color 0.2s", "&:hover": { color: "#f1f1f1ff", backgroundColor: "rgba(219, 219, 219, 0.1)" } }}
               >
                 <LabelOutlinedIcon fontSize="small" />
               </IconButton>
@@ -91,8 +91,8 @@ function EditModal({ note, onClose, onSave, onDelete, existingLabels = [] }) {
 
           </div>
 
-          {showLabel && (
-            <Fade in={showLabel}>
+          {activePanel === "label" && (
+            <Fade in={activePanel === "label"}>
               <div className="mt-1">
                 <LabelPicker
                   label={label}

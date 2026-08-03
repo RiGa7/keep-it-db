@@ -207,7 +207,7 @@ app.get('/', (req, res) => {
 app.get('/notes', authenticateToken, async (req, res) => {
     try {
         const { rows } = await pool.query(
-            'SELECT * FROM notes WHERE user_id = $1 ORDER BY created_at DESC',
+            'SELECT * FROM notes WHERE user_id = $1 ORDER BY position ASC NULLS LAST, created_at DESC',
             [req.user.id]
         );
         res.json(rows);
@@ -218,17 +218,49 @@ app.get('/notes', authenticateToken, async (req, res) => {
 
 });
 
+    
+app.patch('/notes/reorder', authenticateToken, async (req, res) => {
+    const { ids } = req.body; // ordered array of note IDs
+    if (!Array.isArray(ids) || ids.length === 0) {
+        return res.status(400).json({ error: 'ids array is required' });
+    }
+    const client = await pool.connect();
+    try {
+        await client.query('BEGIN');
+        for (let i = 0; i < ids.length; i++) {
+            await client.query(
+                'UPDATE notes SET position = $1 WHERE id = $2 AND user_id = $3',
+                [i + 1, ids[i], req.user.id]
+            );
+        }
+        await client.query('COMMIT');
+        res.json({ ok: true });
+    } catch (err) {
+        await client.query('ROLLBACK');
+        console.error('Reorder error:', err);
+        res.status(500).json({ error: 'Server error' });
+    } finally {
+        client.release();
+    }
+});
 
 
 app.post('/notes', authenticateToken, async (req, res) => {
 
     const { title, content, label, label_color } = req.body;
 
+
     try {
+        // Shift all existing notes down to make room at position 1
+        await pool.query(
+            'UPDATE notes SET position = position + 1 WHERE user_id = $1',
+            [req.user.id]
+        );
         const { rows } = await pool.query(
-            'INSERT INTO notes (title, content, label, label_color, user_id) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+            'INSERT INTO notes (title, content, label, label_color, user_id, position) VALUES ($1, $2, $3, $4, $5, 1) RETURNING *',
             [title, content, label || null, label_color || null, req.user.id]
         );
+
 
         const newNote = rows[0];
         if (newNote.label) {

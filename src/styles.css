@@ -253,3 +253,18 @@ body {
   font-weight: 600;
   color: #e5e7eb;
 }
+
+/* ─── Drag-and-Drop Note Reordering ────────────────────────────────────────── */
+
+.note-dragging {
+  opacity: 0.35;
+  transform: scale(0.97);
+  cursor: grabbing !important;
+}
+
+.note-drag-over {
+  border-color: #32E0C4 !important;
+  box-shadow: 0 0 0 2px rgba(50, 224, 196, 0.25), 0 4px 20px rgba(50, 224, 196, 0.1);
+  transform: scale(1.01);
+}
+

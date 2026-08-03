@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef, useCallback } from 'react'
 import Note from "../components/Note";
 import CreateArea from "../components/CreateArea";
 import EditModal from "../components/EditModal";
@@ -14,6 +14,9 @@ function Home() {
     const [error, setError] = useState(null);
     const [selectedLabel, setSelectedLabel] = useState("");
 
+    // Drag-and-drop state
+    const dragIndexRef = useRef(null); // index in `notes` being dragged
+    const [dragOverIndex, setDragOverIndex] = useState(null);
 
     const authHeaders = {
         "Content-Type": "application/json",
@@ -49,7 +52,7 @@ function Home() {
 
             } catch (error) {
                 console.error("Error fetching notes:", error);
-                setError(error.message);    
+                setError(error.message);
                 setNotes([]);
             } finally {
                 setLoading(false);
@@ -139,6 +142,65 @@ function Home() {
         }
     };
 
+    // ─── Drag-and-drop handlers ──────────────────────────────────────────────
+
+    const reorderNotes = useCallback(async (reorderedNotes) => {
+        // Optimistic update
+        setNotes(reorderedNotes);
+        try {
+            await fetch(`${API_URL}/notes/reorder`, {
+                method: "PATCH",
+                headers: authHeaders,
+                body: JSON.stringify({ ids: reorderedNotes.map(n => n.id) }),
+            });
+        } catch (err) {
+            console.error("Reorder failed:", err);
+        }
+    }, [token]);
+
+    const handleDragStart = useCallback((e, noteIndex) => {
+        dragIndexRef.current = noteIndex;
+        e.dataTransfer.effectAllowed = "move";
+        // Delay adding class so drag ghost renders first
+        setTimeout(() => {
+            const el = e.target.closest("[data-note-index]");
+            if (el) el.classList.add("note-dragging");
+        }, 0);
+    }, []);
+
+    const handleDragOver = useCallback((e, noteIndex) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = "move";
+        setDragOverIndex(noteIndex);
+    }, []);
+
+    const handleDrop = useCallback((e, dropIndex) => {
+        e.preventDefault();
+        const dragIndex = dragIndexRef.current;
+        if (dragIndex === null || dragIndex === dropIndex) return;
+
+        setNotes(prev => {
+            const reordered = [...prev];
+            const [moved] = reordered.splice(dragIndex, 1);
+            reordered.splice(dropIndex, 0, moved);
+            // Persist async (only full notes list, not filtered)
+            reorderNotes(reordered);
+            return reordered;
+        });
+
+        dragIndexRef.current = null;
+        setDragOverIndex(null);
+    }, [reorderNotes]);
+
+    const handleDragEnd = useCallback(() => {
+        dragIndexRef.current = null;
+        setDragOverIndex(null);
+        // Remove dragging class from all notes
+        document.querySelectorAll(".note-dragging").forEach(el => el.classList.remove("note-dragging"));
+    }, []);
+
+    // ────────────────────────────────────────────────────────────────────────
+
     const labels = Object.values(notes.reduce((acc, note) => {
         if (note.label) {
             if (!acc[note.label]) {
@@ -187,19 +249,35 @@ function Home() {
 
                 {!loading && !error && filteredNotes.length > 0 && (
                     <div className="grid grid-cols-2 md:grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-2 md:gap-6 mt-10">
-                        {filteredNotes.map((noteItem) => (
-                            <Note
-                                key={noteItem.id}
-                                id={noteItem.id}
-                                title={noteItem.title}
-                                content={noteItem.content}
-                                label={noteItem.label}
-                                label_color={noteItem.label_color}
-                                onDelete={deleteNote}
-                                onEdit={editNote}
-                                onEditClick={setEditingNote}
-                            />
-                        ))}
+                        {filteredNotes.map((noteItem, index) => {
+                            // When a label filter is active, find the real index in the full notes array
+                            const realIndex = selectedLabel
+                                ? notes.findIndex(n => n.id === noteItem.id)
+                                : index;
+
+                            return (
+                                <div
+                                    key={noteItem.id}
+                                    data-note-index={realIndex}
+                                    className={`transition-all duration-150 ${dragOverIndex === realIndex ? "note-drag-overlay" : ""}`}
+                                >
+                                    <Note
+                                        id={noteItem.id}
+                                        title={noteItem.title}
+                                        content={noteItem.content}
+                                        label={noteItem.label}
+                                        label_color={noteItem.label_color}
+                                        onDelete={deleteNote}
+                                        onEdit={editNote}
+                                        onEditClick={setEditingNote}
+                                        onDragStart={(e) => handleDragStart(e, realIndex)}
+                                        onDragOver={(e) => handleDragOver(e, realIndex)}
+                                        onDrop={(e) => handleDrop(e, realIndex)}
+                                        onDragEnd={handleDragEnd}
+                                    />
+                                </div>
+                            );
+                        })}
                     </div>
                 )}
 
